@@ -14,11 +14,19 @@
 
 ## Deployment
 
+## Running
+
+-
+
+
 ## Functional Requirements
 
 ## Non-Functional Requirements
 
 - [x] Add MIT license.
+- [x] Deploy in Github Pages.
+- [ ] Deploy in Vercel.
+- [ ] Deploy in Netify.
 
 ## License
 
