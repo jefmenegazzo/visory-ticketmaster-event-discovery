@@ -101,7 +101,9 @@
 					"options": {
 						"dir": "dist/visory-ticketmaster-event-discovery/browser",
 						"repo": "https://github.com/jefmenegazzo/visory-ticketmaster-event-discovery",
-						"baseHref": "/"
+						"baseHref": "./",
+						"remote": "origin",
+						"message": "Deployed to GitHub Pages"
 					}
 				}
 			}
