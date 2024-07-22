@@ -1,8 +1,30 @@
-<h1>Angular Router App</h1>
-<nav>
-  <ul>
-    <li><a routerLink="/first-component" routerLinkActive="active" ariaCurrentWhenActive="page">First Component</a></li>
-    <li><a routerLink="/second-component" routerLinkActive="active" ariaCurrentWhenActive="page">Second Component</a></li>
-  </ul>
-</nav>
+<div class="card">
+	<p-menubar [model]="items">
+		<ng-template pTemplate="item" let-item>
+			<ng-container *ngIf="item.route; else urlRef">
+				<a [routerLink]="item.route" class="p-menuitem-link">
+					<span [class]="item.icon"></span>
+					<span class="ml-2">{{ item.label }}</span>
+				</a>
+			</ng-container>
+			<ng-template #urlRef>
+				<a
+					*ngIf="item.url; else noLink"
+					[href]="item.url"
+					class="p-menuitem-link"
+				>
+					<span [class]="item.icon"></span>
+					<span class="ml-2">{{ item.label }}</span>
+				</a>
+			</ng-template>
+			<ng-template #noLink>
+				<div class="p-menuitem-link">
+					<span [class]="item.icon"></span>
+					<span class="ml-2">{{ item.label }}</span>
+					<span class="pi pi-fw pi-angle-down ml-2"></span>
+				</div>
+			</ng-template>
+		</ng-template>
+	</p-menubar>
+</div>
 <router-outlet></router-outlet>
