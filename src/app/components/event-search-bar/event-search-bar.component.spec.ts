@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventListComponent } from './event-list.component';
+import { EventSearchBarComponent } from './event-search-bar.component';
 
-describe('EventListComponent', () => {
-	let component: EventListComponent;
-	let fixture: ComponentFixture<EventListComponent>;
+describe('EventSearchBarComponent', () => {
+	let component: EventSearchBarComponent;
+	let fixture: ComponentFixture<EventSearchBarComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [EventListComponent]
+			imports: [EventSearchBarComponent]
 		})
 			.compileComponents();
 
-		fixture = TestBed.createComponent(EventListComponent);
+		fixture = TestBed.createComponent(EventSearchBarComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
