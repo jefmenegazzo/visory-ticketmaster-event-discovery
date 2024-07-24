@@ -1,0 +1,98 @@
+<form (ngSubmit)="searchEvents()">
+	<div
+		class="flex flex-column flex-wrap w-12 align-items-center justify-content-center sm:flex-column md:flex-row lg:flex-row xl:flex-row gap-2 mb-2"
+	>
+		<div
+			class="flex align-items-center justify-content-center w-12 md:w-5 lg:w-3 xl:w-3"
+		>
+			<p-inputGroup>
+				<p-inputGroupAddon>
+					<i class="pi pi-map-marker"></i>
+				</p-inputGroupAddon>
+
+				<p-autoComplete
+					placeholder="Location"
+					styleClass="w-full input-field-border"
+					optionLabel="locationSearchLabel"
+					[minLength]="3"
+					[showClear]="true"
+					[(ngModel)]="location.textSearch"
+					[ngModelOptions]="{ standalone: true }"
+					[suggestions]="location.suggestions"
+					(completeMethod)="searchLocations($event)"
+					(onSelect)="searchEvents()"
+					(onClear)="searchEvents()"
+				></p-autoComplete>
+			</p-inputGroup>
+		</div>
+
+		<div
+			class="flex align-items-center justify-content-center w-12 md:w-5 lg:w-3 xl:w-3"
+		>
+			<p-inputGroup>
+				<p-inputGroupAddon>
+					<i class="pi pi-calendar"></i>
+				</p-inputGroupAddon>
+				<p-calendar
+					styleClass="w-full input-field-border"
+					[minDate]="dates.minDate"
+					[(ngModel)]="dates.rangeDates"
+					[ngModelOptions]="{ standalone: true }"
+					selectionMode="range"
+					[numberOfMonths]="numberOfMonths"
+					placeholder="All Dates"
+					[showButtonBar]="true"
+					[readonlyInput]="true"
+					[touchUI]="isSmallScreen"
+					(onSelect)="searchEvents()"
+					(onClear)="searchEvents()"
+					[showClear]="true"
+					(onClearClick)="searchEvents()"
+				>
+				</p-calendar>
+			</p-inputGroup>
+		</div>
+
+		<div
+			class="flex align-items-center justify-content-center w-12 md:w-10 lg:w-4 xl:w-3"
+		>
+			<p-inputGroup>
+				<p-inputGroupAddon>
+					<i class="pi pi-search"></i>
+				</p-inputGroupAddon>
+				<p-iconField
+					iconPosition="right"
+					class="w-full input-field-border"
+				>
+					<p-inputIcon
+						class="cursor-pointer"
+						styleClass="pi pi-times"
+						*ngIf="searchText.searchString"
+						(click)="clearSearchTextString()"
+					/>
+					<input
+						type="text"
+						class="w-full input-field-border"
+						pInputText
+						[(ngModel)]="searchText.searchString"
+						[ngModelOptions]="{ standalone: true }"
+						(ngModelChange)="searchText.searchSubject.next($event)"
+						placeholder="Search by Artist, Event or Venue"
+					/>
+				</p-iconField>
+			</p-inputGroup>
+		</div>
+
+		<!-- <div
+			class="flex align-items-center justify-content-center w-12 md:w-2 lg:w-1 xl:w-1"
+		>
+			<button
+				pButton
+				type="submit"
+				label="Search"
+				class="w-full"
+				[loading]="searchLoading"
+			></button>
+		</div> -->
+	</div>
+</form>
