@@ -1,0 +1,321 @@
+<p-scrollTop icon="pi pi-arrow-up" />
+<p-toast />
+<ng-template
+	#imageBlock
+	let-event="event"
+	let-divClass="divClass"
+	let-imgClass="imgClass"
+>
+	<div [class]="divClass">
+		<img
+			[class]="imgClass"
+			[src]="event.eventImage"
+			[alt]="event.eventTitle"
+		/>
+		<p-tag
+			class="absolute"
+			[value]="event.eventStatus"
+			[severity]="event.eventStatusColor"
+			[style.left.px]="4"
+			[style.top.px]="4"
+		/>
+	</div>
+</ng-template>
+
+<ng-template #infoBlock let-event="event">
+	<div
+		class="flex flex-column justify-content-between align-items-start gap-2"
+	>
+		<span class="font-medium text-secondary text-sm"
+			>{{ event.eventStartDateTime | date : "EEEE • MMM d, y • h:mm a" }}
+			{{ event.eventEndDateTime ? " until " : "" }}
+			{{ event.eventEndDateTime | date : "EEEE • MMM d, y • h:mm a" }}
+		</span>
+
+		<span class="text-lg font-medium text-900 mt-2">
+			{{ event.eventTitle }}
+		</span>
+		<span class="font-medium text-secondary text-sm">{{
+			event.eventSubTitle
+		}}</span>
+
+		<span class="font-medium text-secondary text-sm mt-2">{{
+			event.eventLocation
+		}}</span>
+	</div>
+</ng-template>
+
+<ng-template #actionsBlock let-event="event">
+	<div class="flex flex-column mt-4">
+		<div class="flex align-items-center justify-content-center end">
+			<p-button
+				icon="pi pi-external-link"
+				class="white-space-nowrap"
+				label="Find Tickets"
+				[text]="true"
+				(click)="goToLink(event.eventUrl)"
+			/>
+
+			<!-- <p-button
+				icon="pi pi-eye"
+				class="flex-auto md:flex-initial white-space-nowrap"
+				label="View Details"
+				[text]="true"
+				(click)="goToLink(event.eventUrl)"
+			/> -->
+		</div>
+	</div>
+</ng-template>
+
+<div class="card">
+	<div class="flex flex-column">
+		<p-dataView #dv [value]="events" [layout]="layout">
+			<ng-template pTemplate="header">
+				<div class="flex flex-column">
+					<app-event-search-bar
+						(onSearchRequested)="loadEvents($event)"
+						[searchLoading]="loading"
+					></app-event-search-bar>
+					<div
+						class="flex justify-content-between align-items-center align-content-center align-items-center"
+					>
+						<span *ngIf="eventsPage.total; else noResultsFound">
+							Found
+							{{ eventsPage.total | number : "1.0-0" }}
+							events
+						</span>
+						<ng-template #noResultsFound>
+							<span> No results found </span>
+						</ng-template>
+						<p-dataViewLayoutOptions />
+					</div>
+				</div>
+			</ng-template>
+			<ng-template pTemplate="list" let-events>
+				<div class="grid grid-nogutter">
+					<div
+						*ngIf="loading; then loadingBlock; else loadedBlock"
+					></div>
+					<ng-template #loadingBlock>
+						<div
+							class="col-12"
+							*ngFor="
+								let i of counterArray(20);
+								let first = first
+							"
+							class="col-12"
+						>
+							<div
+								class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4"
+								[ngClass]="{
+									'border-top-1 surface-border': !first
+								}"
+							>
+								<p-skeleton
+									styleClass="w-9 sm:w-16rem xl:w-10rem h-6rem block xl:block mx-auto border-round"
+								/>
+								<div
+									class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4"
+								>
+									<div
+										class="flex flex-column align-items-center sm:align-items-start gap-3"
+									>
+										<p-skeleton
+											styleClass="w-8rem border-round h-2rem"
+										/>
+										<p-skeleton
+											styleClass="w-6rem border-round h-1rem"
+										/>
+										<div
+											class="flex align-items-center gap-3"
+										>
+											<p-skeleton
+												styleClass="w-6rem border-round h-1rem"
+											/>
+											<p-skeleton
+												styleClass="w-3rem border-round h-1rem"
+											/>
+										</div>
+									</div>
+									<div
+										class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2"
+									>
+										<p-skeleton
+											styleClass="w-4rem border-round h-2rem"
+										/>
+										<p-skeleton
+											shape="circle"
+											styleClass="w-3rem h-3rem"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+					<ng-template #loadedBlock>
+						<div
+							class="col-12"
+							*ngFor="let event of events; let first = first"
+							class="col-12"
+						>
+							<div
+								class="flex flex-column md:flex-row md:align-items-center p-4 gap-3"
+								[ngClass]="{
+									'border-top-1 surface-border': !first
+								}"
+							>
+								<ng-container
+									[ngTemplateOutlet]="imageBlock"
+									[ngTemplateOutletContext]="{
+										event: event,
+										imgClass:
+											'block xl:block mx-auto border-round w-full',
+										divClass: 'md:w-10rem relative'
+									}"
+								>
+								</ng-container>
+
+								<div
+									class="flex flex-column md:flex-row md:align-items-center justify-content-between flex-1"
+								>
+									<ng-container
+										[ngTemplateOutlet]="infoBlock"
+										[ngTemplateOutletContext]="{
+											event: event,
+										}"
+									>
+									</ng-container>
+
+									<ng-container
+										[ngTemplateOutlet]="actionsBlock"
+										[ngTemplateOutletContext]="{
+											event: event,
+										}"
+									>
+									</ng-container>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</div>
+			</ng-template>
+			<ng-template let-event pTemplate="grid" let-events>
+				<div class="grid grid-nogutter">
+					<div
+						*ngIf="loading; then loadingBlock; else loadedBlock"
+					></div>
+					<ng-template #loadingBlock>
+						<div
+							class="col-12 sm:col-6 md:col-6 lg:col-4 xl:col-3 p-4"
+							*ngFor="let i of counterArray(20)"
+						>
+							<div
+								class="p-4 border-1 surface-border surface-card border-round"
+							>
+								<div
+									class="flex flex-wrap align-items-center justify-content-between gap-2"
+								>
+									<p-skeleton
+										styleClass="w-6rem border-round h-2rem"
+									/>
+									<p-skeleton
+										styleClass="w-3rem border-round h-1rem"
+									/>
+								</div>
+								<div
+									class="flex flex-column align-items-center gap-3 py-5"
+								>
+									<p-skeleton
+										styleClass="w-9 border-round h-10rem"
+									/>
+									<p-skeleton
+										styleClass="w-8rem border-round h-2rem"
+									/>
+									<p-skeleton
+										styleClass="w-6rem border-round h-1rem"
+									/>
+								</div>
+								<div
+									class="flex align-items-center justify-content-between"
+								>
+									<p-skeleton
+										styleClass="w-4rem border-round h-2rem"
+									/>
+									<p-skeleton
+										shape="circle"
+										styleClass="w-3rem h-3rem"
+									/>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+					<ng-template #loadedBlock>
+						<div
+							class="col-12 sm:col-6 md:col-6 lg:col-4 xl:col-3 p-4"
+							*ngFor="let event of events"
+						>
+							<div
+								class="p-4 border-1 surface-border surface-card border-round flex flex-column"
+							>
+								<div
+									class="surface-50 flex justify-content-center border-round"
+								>
+									<ng-container
+										[ngTemplateOutlet]="imageBlock"
+										[ngTemplateOutletContext]="{
+											event: event,
+											imgClass: 'border-round w-full',
+											divClass: 'relative mx-auto'
+										}"
+									>
+									</ng-container>
+								</div>
+
+								<div>
+									<ng-container
+										[ngTemplateOutlet]="infoBlock"
+										[ngTemplateOutletContext]="{
+											event: event,
+										}"
+									>
+									</ng-container>
+
+									<ng-container
+										[ngTemplateOutlet]="actionsBlock"
+										[ngTemplateOutletContext]="{
+											event: event,
+										}"
+									>
+									</ng-container>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</div>
+			</ng-template>
+		</p-dataView>
+		<div
+			class="flex flex-column justify-content-center align-items-center w-full gap-2"
+		>
+			<span class="flex"
+				>Loaded {{ eventsPage.loaded | number : "1.0-0" }} out of
+				{{ eventsPage.total | number : "1.0-0" }} events</span
+			>
+			<p-progressBar
+				class="flex mb-2"
+				styleClass="w-28rem h-1rem"
+				[value]="(eventsPage.loaded / eventsPage.total) * 100"
+				[showValue]="false"
+			></p-progressBar>
+			<button
+				class="flex mb-2"
+				pButton
+				type="button"
+				label="More Events"
+				icon="pi pi-chevron-down"
+				(click)="loadEvents(eventSearchParamsDto)"
+				[disabled]="loading || eventsPage.loaded >= eventsPage.total"
+			></button>
+		</div>
+	</div>
+</div>

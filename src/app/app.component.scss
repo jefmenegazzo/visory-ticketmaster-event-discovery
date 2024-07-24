@@ -1,0 +1,46 @@
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+@media (max-width: #{$breakpoint-sm - 1}) {
+	.template-start {
+		display: none;
+	}
+
+	:host ::ng-deep .p-menubar-end {
+		width: 100%;
+	}
+}
+
+@media (min-width: $breakpoint-sm) and (max-width: #{$breakpoint-md - 1}) {
+	.template-start {
+		display: none;
+	}
+
+	:host ::ng-deep .p-menubar-end {
+		width: 100%;
+	}
+}
+
+@media (min-width: $breakpoint-md) and (max-width: #{$breakpoint-lg - 1}) {
+	.template-start {
+		display: none;
+	}
+
+	:host ::ng-deep .p-menubar-end {
+		width: 100%;
+	}
+}
+
+@media (min-width: $breakpoint-lg) and (max-width: #{$breakpoint-xl - 1}) {
+	.template-end {
+		display: none;
+	}
+}
+
+@media (min-width: $breakpoint-xl) {
+	.template-end {
+		display: none;
+	}
+}

@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/primeng.css";
+@import "primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
+@import "primeng/resources/themes/aura-light-blue/theme.css";
+
+html {
+    font-size: 14px;
+}
+
+.h-1-35rem {
+	height: 1.35rem;
+}
