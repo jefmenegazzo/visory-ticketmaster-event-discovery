@@ -128,12 +128,13 @@ The applications is deployed and can be accessed in the following links:
 
 The application is fully responsible, and can run in smartphone, tablets and desktop environments.
 
-<p align="center">
-![Desktop](./img/desktop.png)
-</p>
-<p align="center">
-![Smartphone](./img/smartphone.png)
-</p>
+<div align="center">
+    <img src="./img/desktop.png"  align="center"/>
+</div>
+
+<div align="center">
+    <img src="./img/desksmartphonetop.png"  align="center"/>
+</div>
 
 ## License
 
