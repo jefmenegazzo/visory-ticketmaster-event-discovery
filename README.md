@@ -11,7 +11,7 @@ This project consists of a Progressive Web App (PWA) built with Angular and inte
 - [Usage](#usage)
 - [License](#license)
 
-### Prerequisites
+## Prerequisites
 
 Ensure you have the following installed:
 
@@ -119,7 +119,7 @@ To deploy your Angular project to a production environment, you can use the gith
    - Import your repository into the Vercel platform.
    - Vercel will automatically build and deploy your application based on the configuration in your repository.
 
-# Usage
+## Usage
 
 The applications is deployed and can be accessed in the following links:
 
@@ -133,7 +133,7 @@ The application is fully responsible, and can run in smartphone, tablets and des
 </div>
 
 <div align="center">
-    <img src="./img/desksmartphonetop.png"  align="center"/>
+    <img src="./img/smartphonet.png"  align="center"/>
 </div>
 
 ## License
