@@ -126,14 +126,14 @@ The applications is deployed and can be accessed in the following links:
 - [Github Pages](https://jefmenegazzo.github.io/visory-ticketmaster-event-discovery)
 - [Vercel](https://visory-ticketmaster-event-discovery.vercel.app/)
 
-The application is fully responsible, and can run in smartphone, tablets and desktop environments.
+The application is fully responsive and can run on smartphones, tablets, and desktop environments.
 
 <div align="center">
     <img src="./img/desktop.png"  align="center"/>
 </div>
 
 <div align="center">
-    <img src="./img/smartphonet.png"  align="center"/>
+    <img src="./img/smartphone.png"  align="center"/>
 </div>
 
 ## License
